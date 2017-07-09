@@ -1,15 +1,14 @@
-# mycat-config
-http://www.mycat.io/  mycat下载地扯
+## mycat-config mycat读写分离配置
+-----------------------------------------------------
+        http://www.mycat.io/  mycat下载地扯
 
-mycat mysql 读写分享配置
-
-mycat schema.xml 配置
-
-<?xml version="1.0"?>
-<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
-<mycat:schema xmlns:mycat="http://io.mycat/">
-    <!-- 定义MyCat的逻辑库 -->
-    <schema name="test_schema" checkSQLschema="false" sqlMaxLimit="100" dataNode="qingkaNode"></schema>
+### mycat schema.xml 配置
+-------------------------------------------------------
+        <?xml version="1.0"?>
+        <!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+        <mycat:schema xmlns:mycat="http://io.mycat/">
+            <!-- 定义MyCat的逻辑库 -->
+            <schema name="test_schema" checkSQLschema="false" sqlMaxLimit="100" dataNode="qingkaNode"></schema>
     <!-- 定义MyCat的数据节点 -->
     <dataNode name="testNode" dataHost="dtHost" database="test" />
     <!-- 定义数据主机dtHost，连接到MySQL读写分离集群 ,schema中的每一个dataHost中的host属性值必须唯一-->
@@ -23,13 +22,13 @@ mycat schema.xml 配置
         <writeHost host="hostMaster" url="192.168.20.135:3306" user="root" password="root123" /><!-- 主库 -->
         <writeHost host="hostSlave" url="192.168.20.134:3306" user="root" password="root123" /><!-- 备库 -->
     </dataHost>
-</mycat:schema>
+        </mycat:schema>
 
 
-mycat server.xml 配置
-
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- - - Licensed under the Apache License, Version 2.0 (the "License"); 
+### mycat server.xml 配置
+---------------------------------------------------------
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!-- - - Licensed under the Apache License, Version 2.0 (the "License"); 
 	- you may not use this file except in compliance with the License. - You 
 	may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
 	- - Unless required by applicable law or agreed to in writing, software - 
@@ -37,8 +36,8 @@ mycat server.xml 配置
 	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
 	License for the specific language governing permissions and - limitations 
 	under the License. -->
-<!DOCTYPE mycat:server SYSTEM "server.dtd">
-<mycat:server xmlns:mycat="http://io.mycat/">
+        <!DOCTYPE mycat:server SYSTEM "server.dtd">
+        <mycat:server xmlns:mycat="http://io.mycat/">
 	<system>
 	<property name="useSqlStat">0</property>  <!-- 1为开启实时统计、0为关闭 -->
 	<property name="useGlobleTableCheck">0</property>  <!-- 1为开启全加班一致性检测、0为关闭 -->
@@ -118,11 +117,10 @@ mycat server.xml 配置
         <property name="schemas">test_schema</property>
         <property name="readOnly">true</property>
     </user>
+        </mycat:server>
 
-
-</mycat:server>
-
-
+----------------------------------------------------------------
 mysql控制台连接管理数据库:
-             ./mysql -umtest -proot123 -hdb135 -P8066 -Dtest_schema  
+        
+        ./mysql -umtest -proot123 -hdb135 -P8066 -Dtest_schema  
 
